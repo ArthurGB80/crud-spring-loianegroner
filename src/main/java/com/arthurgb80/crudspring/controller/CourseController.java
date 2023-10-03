@@ -36,17 +36,30 @@ public class CourseController {
     @GetMapping("/{id}")
     public ResponseEntity<Course> findById(@PathVariable Long id) {
         return courseRepository.findById(id)
-        .map(record -> ResponseEntity.ok().body(record))
-        .orElse(ResponseEntity.notFound().build());
+                .map(recordFond -> ResponseEntity.ok().body(recordFond))
+                .orElse(ResponseEntity.notFound().build());
     }
 
     // @RequestMapping(method = RequestMethod.POST)
     @PostMapping
     @ResponseStatus(code = HttpStatus.CREATED)
     public Course create(@RequestBody Course course) {
-        //System.out.println(course.getName());
+        // System.out.println(course.getName());
         return courseRepository.save(course);
         // return ResponseEntity.status(HttpStatus.CREATED)
-        //         .body(courseRepository.save(course));
+        // .body(courseRepository.save(course));
+    }
+
+    @PostMapping("/{id}")
+    public ResponseEntity<Course> update(@PathVariable Long id,
+            @RequestBody Course course) {
+        return courseRepository.findById(id)
+                .map(recordFound -> {
+                    recordFound.setName(course.getName());
+                    recordFound.setCategory(course.getCategory());
+                    Course updated = courseRepository.save(recordFound);
+                    return ResponseEntity.ok().body(updated);
+                })
+                .orElse(ResponseEntity.notFound().build());
     }
 }
