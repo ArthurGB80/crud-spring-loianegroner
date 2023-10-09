@@ -36,13 +36,14 @@ public class Course {
 
     @NotNull
     @Size(max = 10)
-    @Pattern(regexp = "Back-end|Front-end", message = "Category must be either 'Back-end' or 'Front-end'")
+    @Pattern(regexp = "Back-end|Front-end")
+    @JsonProperty("_id")
     @Column(length = 10, nullable = false)
     private String category;
 
     @NotNull
     @Size(max = 10)
-    @Pattern(regexp = "Ativo|inativo", message = "Status must be either 'Ativo' or 'Inativo'")
+    @Pattern(regexp = "Ativo|inativo")
     @Column(length = 10, nullable = false)
     private String status = "Ativo";
 
