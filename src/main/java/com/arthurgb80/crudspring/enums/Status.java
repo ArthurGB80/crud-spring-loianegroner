@@ -1,17 +1,13 @@
 package com.arthurgb80.crudspring.enums;
 
-public enum Category {
+public enum Status {
 
-    BACK_END("Back-end"), FRONT_END("Front-end");
-    
+    ACTIVE("Ativo"), INACTIVE("Inativo");
+
     private String value;
 
-    private Category(String value) {
+    private Status(String value) {
         this.value = value;
-    }
-
-    public String getValue() {
-        return value;
     }
 
     @Override
@@ -19,4 +15,7 @@ public enum Category {
         return value;
     }
 
+    public String getValue() {
+        return value;
+    }
 }

@@ -9,12 +9,12 @@ import com.arthurgb80.crudspring.model.Course;
 @Component
 public class CourseMapper {
 
-    public CourseDTO toDTO(Course course) {
-        if (course == null) {
-            return null;
-        }
-        return new CourseDTO(course.getId(), course.getName(), "Front-end");
+public CourseDTO toDTO(Course course) {
+    if (course == null) {
+        return null;
     }
+    return new CourseDTO(course.getId(), course.getName(), course.getCategory().getValue());
+}
 
     public Course toEntinty(CourseDTO courseDTO) {
 
@@ -27,8 +27,20 @@ public class CourseMapper {
             course.setId(courseDTO.id());
         }
         course.setName(courseDTO.name());
-        course.setCategory(Category.FRONT_END);
-        course.setStatus("Ativo");
+        // TODO: use a mapper for Category
+        course.setCategory(convertCategoryValue(courseDTO.category()));
         return course;
+    }
+
+    public Category convertCategoryValue (String value) {
+        if (value == null) {
+            return null;
+        }
+        return switch (value) {
+            case "Front-end" -> Category.FRONT_END;
+            case "Back-end" -> Category.BACK_END;
+            default -> throw new IllegalArgumentException("Categoria inválidada: " + value);
+        };
+        
     }
 }
