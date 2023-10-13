@@ -11,11 +11,11 @@ import jakarta.persistence.Converter;
 public class StatusConverter implements AttributeConverter<Status, String> {
 
     @Override
-    public String convertToDatabaseColumn(Status status) {
-        if (status == null) {
+    public String convertToDatabaseColumn(Status category) {
+        if (category == null) {
             return null;
         }
-        return status.getValue();
+        return category.getValue();
     }
 
     @Override
@@ -28,4 +28,5 @@ public class StatusConverter implements AttributeConverter<Status, String> {
                 .findFirst()
                 .orElseThrow(IllegalArgumentException::new);
     }
+
 }
