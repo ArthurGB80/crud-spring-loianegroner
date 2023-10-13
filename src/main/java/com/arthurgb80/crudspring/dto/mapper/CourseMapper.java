@@ -13,7 +13,8 @@ public CourseDTO toDTO(Course course) {
     if (course == null) {
         return null;
     }
-    return new CourseDTO(course.getId(), course.getName(), course.getCategory().getValue());
+    return new CourseDTO(course.getId(), course.getName(), course.getCategory().getValue(),
+            course.getLessons());
 }
 
     public Course toEntinty(CourseDTO courseDTO) {
@@ -27,7 +28,6 @@ public CourseDTO toDTO(Course course) {
             course.setId(courseDTO.id());
         }
         course.setName(courseDTO.name());
-        // TODO: use a mapper for Category
         course.setCategory(convertCategoryValue(courseDTO.category()));
         return course;
     }
